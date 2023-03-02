@@ -1,13 +1,15 @@
 package fp.coches;
 
 import java.time.LocalDate;
-
+import java.util.List;
+import java.util.Objects;
+import fp.utiles.Checkers;
 public class Coche {
 	private String constructor;
 	private String modelo;
 	private Integer ventasMiles;
 	private Double reventaValor;
-	private TipoVehiculo tipoVehiculo;
+	private Boolean esPasajeros;
 	private Double precioMiles;
 	private Double tamanoMotor;
 	private Integer caballos;
@@ -16,13 +18,9 @@ public class Coche {
 	private Double largo;
 	private Double peso;
 	private Double capacidadGasolina;
-	private Integer eficienciaGasloina;
+	private Integer eficienciaGasolina;
 	private LocalDate ultimoLanzamiento;
-	private Colores color1;
-	private Colores color2;
-	private Colores color3;
-	private Colores color4;
-	private Colores color5;
+	private List<Colores> colores;
 	
 	//Getters & Setters
 	public Integer getVentasMiles() {
@@ -37,11 +35,11 @@ public class Coche {
 	public void setReventaValor(Double reventaValor) {
 		this.reventaValor = reventaValor;
 	}
-	public TipoVehiculo getTipoVehiculo() {
-		return tipoVehiculo;
+	public Boolean getEsCoche() {
+		return esPasajeros;
 	}
-	public void setTipoVehiculo(TipoVehiculo tipoVehiculo) {
-		this.tipoVehiculo = tipoVehiculo;
+	public void setEsCoche(Boolean esPasajeros) {
+		this.esPasajeros = esPasajeros;
 	}
 	public Double getPrecioMiles() {
 		return precioMiles;
@@ -92,10 +90,10 @@ public class Coche {
 		this.capacidadGasolina = capacidadGasolina;
 	}
 	public Integer getEficienciaGasloina() {
-		return eficienciaGasloina;
+		return eficienciaGasolina;
 	}
 	public void setEficienciaGasloina(Integer eficienciaGasloina) {
-		this.eficienciaGasloina = eficienciaGasloina;
+		this.eficienciaGasolina = eficienciaGasloina;
 	}
 	public LocalDate getUltimoLanzamiento() {
 		return ultimoLanzamiento;
@@ -103,35 +101,11 @@ public class Coche {
 	public void setUltimoLanzamiento(LocalDate ultimoLanzamiento) {
 		this.ultimoLanzamiento = ultimoLanzamiento;
 	}
-	public Colores getColor1() {
-		return color1;
+	public List<Colores> getColores() {
+		return colores;
 	}
-	public void setColor1(Colores color1) {
-		this.color1 = color1;
-	}
-	public Colores getColor2() {
-		return color2;
-	}
-	public void setColor2(Colores color2) {
-		this.color2 = color2;
-	}
-	public Colores getColor3() {
-		return color3;
-	}
-	public void setColor3(Colores color3) {
-		this.color3 = color3;
-	}
-	public Colores getColor4() {
-		return color4;
-	}
-	public void setColor4(Colores color4) {
-		this.color4 = color4;
-	}
-	public Colores getColor5() {
-		return color5;
-	}
-	public void setColor5(Colores color5) {
-		this.color5 = color5;
+	public void setColores(List<Colores> colores) {
+		this.colores = colores;
 	}
 	public String getConstructor() {
 		return constructor;
@@ -142,16 +116,24 @@ public class Coche {
 	
 	
 	//Constructor 1
-	public Coche(String constructor, String modelo, Integer ventasMiles, Double reventaValor, TipoVehiculo tipoVehiculo,
+	public Coche(String constructor, String modelo, Integer ventasMiles, Double reventaValor, Boolean esPasajeros,
 			Double precioMiles, Double tamanoMotor, Integer caballos, Double distanciaEjes, Double ancho, Double largo,
-			Double peso, Double capacidadGasolina, Integer eficienciaGasloina, LocalDate ultimoLanzamiento,
-			Colores color1, Colores color2, Colores color3, Colores color4, Colores color5) {
+			Double peso, Double capacidadGasolina, Integer eficienciaGasolina, LocalDate ultimoLanzamiento,
+			List<Colores> colores) {
+		//Restricciones:
 		super();
+		Checkers.checkNoNull(constructor);
+		Checkers.checkNoNull(modelo);
+		Checkers.check("Una reventa no puede ser mayor a su precio origen", reventaValor<100);
+		Checkers.check("Un vehiculo no puede tener coste menor a 0", precioMiles>=0);
+		Checkers.check("No puede haber ventas negativas", ventasMiles>0);
+		Checkers.check("Las dimensiones del motor no cumplen las normativas", tamanoMotor>=1 && tamanoMotor<6);
+		Checkers.check("La fecha de lanzamiento tiene que ser anterior a la fecha de hoy", ultimoLanzamiento.isBefore(LocalDate.now()));
 		this.constructor = constructor;
 		this.modelo = modelo;
 		this.ventasMiles = ventasMiles;
 		this.reventaValor = reventaValor;
-		this.tipoVehiculo = tipoVehiculo;
+		this.esPasajeros = esPasajeros;
 		this.precioMiles = precioMiles;
 		this.tamanoMotor = tamanoMotor;
 		this.caballos = caballos;
@@ -160,14 +142,153 @@ public class Coche {
 		this.largo = largo;
 		this.peso = peso;
 		this.capacidadGasolina = capacidadGasolina;
-		this.eficienciaGasloina = eficienciaGasloina;
+		this.eficienciaGasolina = eficienciaGasolina;
 		this.ultimoLanzamiento = ultimoLanzamiento;
-		this.color1 = color1;
-		this.color2 = color2;
-		this.color3 = color3;
-		this.color4 = color4;
-		this.color5 = color5;
+		this.colores = colores;
 	}
+	
+	//Constructor 2 (Sin ventasMiles, reventaValor, 
+	public Coche(String constructor, String modelo, Boolean esPasajeros, Double tamanoMotor, Integer caballos,
+			Double distanciaEjes, Double capacidadGasolina, Integer eficienciaGasolina) {
+		super();
+		Checkers.checkNoNull(constructor);
+		Checkers.checkNoNull(modelo);
+		this.constructor = constructor;
+		this.modelo = modelo;
+		ventasMiles = null;
+		reventaValor = null;
+		this.esPasajeros = esPasajeros;
+		precioMiles = null;
+		this.tamanoMotor = tamanoMotor;
+		this.caballos = caballos;
+		this.distanciaEjes = distanciaEjes;
+		ancho = null;
+		largo = null;
+		peso = null;
+		this.capacidadGasolina = capacidadGasolina;
+		this.eficienciaGasolina = eficienciaGasolina;
+		ultimoLanzamiento = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()-1); //Dia de ayer
+		colores = List.of(Colores.NEGRO, Colores.BLANCO); //Colores monocromaticos
+		
+	}
+	
+	
+	//HashCode e equals:
+	@Override
+	public int hashCode() {
+		return Objects.hash(ancho, caballos, capacidadGasolina, colores, constructor, distanciaEjes, eficienciaGasolina,
+				esPasajeros, largo, modelo, peso, precioMiles, reventaValor, tamanoMotor, ultimoLanzamiento, ventasMiles);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Coche other = (Coche) obj;
+		return Objects.equals(ancho, other.ancho) && Objects.equals(caballos, other.caballos)
+				&& Objects.equals(capacidadGasolina, other.capacidadGasolina) && Objects.equals(colores, other.colores)
+				&& Objects.equals(constructor, other.constructor) && Objects.equals(distanciaEjes, other.distanciaEjes)
+				&& Objects.equals(eficienciaGasolina, other.eficienciaGasolina)
+				&& Objects.equals(esPasajeros, other.esPasajeros) && Objects.equals(largo, other.largo)
+				&& Objects.equals(modelo, other.modelo) && Objects.equals(peso, other.peso)
+				&& Objects.equals(precioMiles, other.precioMiles) && Objects.equals(reventaValor, other.reventaValor)
+				&& Objects.equals(tamanoMotor, other.tamanoMotor)
+				&& Objects.equals(ultimoLanzamiento, other.ultimoLanzamiento)
+				&& Objects.equals(ventasMiles, other.ventasMiles);
+	}
+	
+	//CompareTO
+	public int compareTo(Coche c) {
+		int r;
+		if (c == null) {
+			throw new NullPointerException();
+		}
+		r = constructor.compareTo(c.getConstructor());	
+		if (r == 0) {
+			r = modelo.compareTo(c.getModelo());
+		}
+		return r;	
+	}
+	
+	//ToString
+	@Override
+	public String toString() {
+		return "Coche [constructor=" + constructor + ", modelo=" + modelo + ", ventasMiles=" + ventasMiles
+				+ ", reventaValor=" + reventaValor + ", esCoche=" + esPasajeros + ", precioMiles=" + precioMiles
+				+ ", tamanoMotor=" + tamanoMotor + ", caballos=" + caballos + ", distanciaEjes=" + distanciaEjes
+				+ ", ancho=" + ancho + ", largo=" + largo + ", peso=" + peso + ", capacidadGasolina="
+				+ capacidadGasolina + ", eficienciaGasloina=" + eficienciaGasolina + ", ultimoLanzamiento="
+				+ ultimoLanzamiento + ", colores=" + colores + "]";
+	}
+	
+	//Propiedades derivadas
+	public String pasajerosOComercial(Boolean b) {
+		if (b) {
+			return "vehiculo de pasajeros";
+		} else {
+			return "vehiculo de comercial";
+		}
+	}
+	public String mesesEsp(Integer n) {
+		String s = null;
+		switch(n) {
+		case 1:
+			s = "Enero";
+			break;
+		case 2:
+			s = "Febrero";
+			break;
+		case 3:
+			s = "Marzo";
+			break;
+		case 4:
+			s = "Abril";
+			break;
+		case 5:
+			s = "Mayo";
+			break;
+		case 6:
+			s = "Junio";
+			break;
+		case 7:
+			s = "Julio";
+			break;
+		case 8:
+			s = "Agosto";
+			break;
+		case 9:
+			s = "Septiembre";
+			break;
+		case 10:
+			s = "Octubre";
+			break;
+		case 11:
+			s = "Noviembre";
+			break;
+		case 12:
+			s = "Diciembre";
+			}
+		return s;
+	}
+	
+	public String DescripcionEnPortalDeVenta() {
+		return "El vehiculo " + constructor + " " + modelo + " es un " + pasajerosOComercial(esPasajeros)
+		+ " tasado en " + precioMiles + " miles de euros, lanzado el " + ultimoLanzamiento.getDayOfMonth() + " de " + 
+				mesesEsp(ultimoLanzamiento.getMonthValue()) + " del " + ultimoLanzamiento.getYear() + 
+				". Su tamaño de motor es de " + tamanoMotor + " litros con " + caballos
+		+ " caballos de potencia, su distancia entre ejes es de " + distanciaEjes + " cm, sus dimensiones son " + ancho
+		+ "x" + largo + " cm, con un peso de " + peso + " toneladas. Su deposito tiene una capacidad de " + capacidadGasolina
+		+ " litros cuya eficiencia es de " + eficienciaGasolina + ". Los colores del coche son: " + colores.toString() + ".";
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
