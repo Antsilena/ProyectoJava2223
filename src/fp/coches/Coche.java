@@ -150,11 +150,6 @@ public class Coche {
 		super();
 		Checkers.checkNoNull(constructor);
 		Checkers.checkNoNull(modelo);
-		Checkers.check("Una reventa no puede ser mayor a su precio origen", reventaValor<100);
-		Checkers.check("Un vehiculo no puede tener coste menor a 0", precioMiles>=0);
-		Checkers.check("No puede haber ventas negativas", ventasMiles>0);
-		Checkers.check("Las dimensiones del motor no cumplen las normativas", tamanoMotor>=1 && tamanoMotor<6);
-		Checkers.check("La fecha de lanzamiento tiene que ser anterior a la fecha de hoy", ultimoLanzamiento.isBefore(LocalDate.now()));
 		this.constructor = constructor;
 		this.modelo = modelo;
 		ventasMiles = null;
@@ -284,22 +279,6 @@ public class Coche {
 		+ " caballos de potencia, su distancia entre ejes es de " + distanciaEjes + " cm, sus dimensiones son " + ancho
 		+ "x" + largo + " cm, con un peso de " + peso + " toneladas. Su deposito tiene una capacidad de " + capacidadGasolina
 		+ " litros cuya eficiencia es de " + eficienciaGasolina + ". Los colores del coche son: " + colores.toString() + ".";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 
 }
