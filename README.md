@@ -45,21 +45,21 @@ El dataset está compuesto por 20 columnas, con la siguiente descripción:
 
 **Propiedades**:
 
-- constructor, de tipo String, consultable. 
-- modelo, de tipo String, consultable. 
-- ventasMiles, de tipo Integer, consultable y modificable. 
-- reventaValor, de tipo Double, consultable y modificable. 
-- esPasajeros, de tipo Boolean, consultable. 
-- precioMiles, de tipo Double, consultable y modificable.
-- tamanoMotor, de tipo Double, consultable y modificable.
-- caballos, de tipo Integer, consultable y modificable.
-- distanciaEjes, de tipo Double, consultable y modificable.
-- ancho, de tipo Double, consultable y modificable.
-- largo, de tipo Double, consultable y modificable
-- peso, de tipo Double, consultable y modificable.
-- capacidadGasolina, de tipo Double, consultable y modificable.
-- ultimoLanzamiento, de tipo LocalDate, consultable y modificable.
-- colores, de tipo List<Colores>, consultable y modificable.
+- _constructor_ , de tipo  _String_ , consultable. 
+- _modelo_ , de tipo  _String_ , consultable. 
+- _ventasMiles_ , de tipo  _Integer_ , consultable y modificable. 
+- _reventaValor_ , de tipo  _Double_ , consultable y modificable. 
+- _esPasajeros_ , de tipo  _Boolean_ , consultable. 
+- _precioMiles_ , de tipo  _Double_ , consultable y modificable.
+- _tamanoMotor_ , de tipo  _Double_ , consultable y modificable.
+- _caballos_ , de tipo  _Integer_ , consultable y modificable.
+- _distanciaEjes_ , de tipo  _Double_ , consultable y modificable.
+- _ancho_ , de tipo  _Double_ , consultable y modificable.
+- _largo_ , de tipo  _Double_ , consultable y modificable
+- _peso_ , de tipo  _Double_ , consultable y modificable.
+- _capacidadGasolina_ , de tipo  _Double_ , consultable y modificable.
+- _ultimoLanzamiento_ , de tipo  _LocalDate_ , consultable y modificable.
+- _colores_ , de tipo  _List<Colores>_ , consultable y modificable.
 
 **Constructores**: 
 
@@ -84,11 +84,34 @@ El dataset está compuesto por 20 columnas, con la siguiente descripción:
 
 **Otras operaciones**:
  
--	toString(): Representacion como cadena con todos las propiedades.
--	pasajerosComercial(): Nos devuelve un String que lo usaremos en nuestra propiedad derivada descripcionEnPortalDeVenta().
--	mesesEsp(): Nos devuelve un String con el nombre del mes en espanol tras nosotros haberselo dado en formato numerico y la usaremos en descripcionEnPortalDeVenta().
--	descripcionEnPortalDeVenta(): Nos devuelve un String con la descripcion que tendria el vehiculo en un portal de venta online usando en el las dos operaciones anteriores.
+-	_toString()_ : Representacion como cadena con todos las propiedades.
+-	_pasajerosComercial()_ : Nos devuelve un String que lo usaremos en nuestra propiedad derivada descripcionEnPortalDeVenta().
+-	_mesesEsp()_ : Nos devuelve un String con el nombre del mes en espanol tras nosotros haberselo dado en formato numerico y la usaremos en descripcionEnPortalDeVenta().
+-	_descripcionEnPortalDeVenta()_ : Nos devuelve un String con la descripcion que tendria el vehiculo en un portal de venta online usando en el las dos operaciones anteriores.
 
 
-###...
+### Tipo Contenedor - EstudioCoches
+Clase contenedora de los objetos de tipo Coche.
+**Propiedades**:
+-  _coches_ , de tipo _List<Coche>_ , consultable. Lista de coches.
+-  _nombre_ , de tipo _String_ , consultable. Nombre del contenedor.
+ 
+**Constructores**: 
+- C1: Constructor por defecto. Crea un objeto de tipo EstudioCoches sin ningun coche almacenado y con nombre.
+- C2: Constructor con un parámetro de tipo Stream\<Coche\>. Crea un objeto de tipo EstudioCoches con los coches incluidos en el Stream dado.
+
+**Criterio de igualdad**: Dos contenedores de coches son iguales si lo son sus propiedades coches.
+
+**Otras operaciones**:
+- _Integer getNumeroCoches(Coche c)_ : Devuelve el numero de coches en el conjunto _coches_.
+- _void añadeCoches(Coche c)_ : Añade un coche c al conjunto _coches_ .
+- _void eliminaCoches(Coche c)_ : Elimina un coche dado del conjunto _coches_ .
+- _Boolean contieneCoche(Coche c)_ : Devuelve true si el coche c esta en el conjunto _coches_ .
+- _String toString()_ : Devuelve la representacion como cadena de EstudioCoches.
+- _Boolean existeVehiculosMasXEuros(Double precio)_ : Devuelve true si existe un coche con un precio superior al dado en la variable _precio_ .
+- _Double mediaProporciones(Boolean esPasajeros)_ : Devuelve la media de proporciones calculado previamente en la funcion _proporciones_ .
+- _List<String> masDeXCaballos(Integer numCaballos)_ : Devuelve una lista de los modelos de coches que tengan mas de la variable _numCaballos_ caballos.
+- _Map<String,Set<String>> ConstructorModelos()_ : Devuelve un map que tiene como clave el constructor y como valor una lista de los modelos del constructor clave.
+- _Map<String,Integer> numeroVentasConstructor()_ : Devuelve un map con los constructores como clave y el numero de ventas (en miles) por constructor.
+
 
