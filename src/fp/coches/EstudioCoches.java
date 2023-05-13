@@ -7,9 +7,12 @@ import java.util.HashMap;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 import java.util.List;
 import java.util.HashSet;
@@ -52,6 +55,12 @@ public class EstudioCoches {
 	//Añade coches
 	public void añadeCoches(Coche c) {
 		coches.add(c);
+	}
+	
+	//Añade todos los coches (usado para leer fichero)
+	public void añadeSetCoches(Set<Coche> setcoches) {
+		coches.addAll(setcoches);
+		
 	}
 	
 	//Elimina coche
@@ -130,7 +139,7 @@ public class EstudioCoches {
 	}
 	
 	//Map de Constructor como clave y lista de modelos como valor
-	public Map<String,Set<String>> ConstructorModelos() {
+	public Map<String,Set<String>> constructorModelos() {
 		Map<String,Set<String>> res = new HashMap<>();
 		for(Coche c:coches) {
 			String con = c.getConstructor();
@@ -157,7 +166,46 @@ public class EstudioCoches {
 	}
 	
 	
-	
+	//Tratamiento funcionales con Stream
+		//Existe coche de pasajeros de mas de x euros
+		public Boolean existeVehiculoMasXEurosS(Double precio) {
+			return this.coches.stream()
+					.anyMatch(x->x.getPrecioMiles()>precio);
+		}
+		
+		public Double mediaProporcionesS(Boolean esPasajeros) {
+			return this.coches.stream()
+					.filter(x->x.getEsPasajeros().equals(esPasajeros))
+					.mapToDouble(v->proporciones(v))
+					.average().getAsDouble();
+		}
+		
+		//Coches con mas de x caballos
+		public List<String> masDeXCaballosS(Integer numCaballos) {
+			return this.coches.stream()
+					.filter(x->x.getCaballos()>numCaballos)
+					.map(v->v.getConstructor()+" "+v.getModelo())
+					.toList();
+		}
+		
+		//Map de Constructor como clave y lista de modelos como valor
+		public Map<String, List<String>> constructorModelosS() {
+			return this.coches.stream().
+					collect(Collectors.
+							groupingBy(Coche::getConstructor, 
+									Collectors.mapping(Coche::getModelo, 
+											Collectors.toList())));
+		}
+		
+		//numero de ventas en miles por constructor
+		public Map<String,Integer> numeroVentasConstructorS() {
+			return this.coches.stream().
+					collect(Collectors.
+							groupingBy(Coche::getConstructor, 
+									Collectors.summingInt(Coche::getVentasMiles))); 
+		}
+
+		
 	
 
 }

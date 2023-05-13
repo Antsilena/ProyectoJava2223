@@ -89,6 +89,10 @@ El dataset está compuesto por 20 columnas, con la siguiente descripción:
 -	_mesesEsp()_ : Nos devuelve un String con el nombre del mes en espanol tras nosotros haberselo dado en formato numerico y la usaremos en descripcionEnPortalDeVenta().
 -	_descripcionEnPortalDeVenta()_ : Nos devuelve un String con la descripcion que tendria el vehiculo en un portal de venta online usando en el las dos operaciones anteriores.
 
+### Factoria - FactoriaCoches
+Clase de factoría para construir objetos de tipo Coche.
+
+- Partidas leerCoches(String nombre, String fichero): Crea un objeto de tipo Coche a partir de la información recogida en el archivo csv, cuya ruta se da como parámetro.
 
 ### Tipo Contenedor - EstudioCoches
 Clase contenedora de los objetos de tipo Coche.

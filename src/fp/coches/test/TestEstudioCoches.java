@@ -2,10 +2,12 @@ package fp.coches.test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import fp.coches.Coche;
 import fp.coches.Colores;
 import fp.coches.EstudioCoches;
+import fp.coches.FactoriaCoches;
 
 public class TestEstudioCoches {
 
@@ -41,44 +43,73 @@ public class TestEstudioCoches {
 		System.out.println(ec.toString());
 		
 		//Mostrar numero de coches
-		System.out.println("Tenemos "+ec.getNumeroCoches()+" coches en el contenedor");
+		System.out.println("\nTenemos "+ec.getNumeroCoches()+" coches en el contenedor");
 		
 		//Elimina coches
-		System.out.println("Eliminamos un coche... ");
+		System.out.println("\nEliminamos un coche... ");
 		ec.eliminaCoches(c5);
 		System.out.println("Ahora tenemos "+ec.getNumeroCoches()+" coches en el contenedor");
 		
 		//Comprobamos si el contenedor contiene un coche
-		System.out.println("¿El contenedor contiene al coche 4? "+ec.contieneCoche(c4));
-		System.out.println("¿El contenedor contiene al coche 5? "+ec.contieneCoche(c5));
-		System.out.println("Añadimos de nuevo al coche 5...");
+		System.out.println("\n¿El contenedor contiene al coche 4? "+ec.contieneCoche(c4));
+		System.out.println("\n¿El contenedor contiene al coche 5? "+ec.contieneCoche(c5));
+		System.out.println("\nAñadimos de nuevo al coche 5...");
 		ec.añadeCoches(c5);
 		
 		//Tratamientos Secuenciales
 		//Existe coche de pasajeros de mas de x euros
-		System.out.println("");
-		Double precio1 = 22.0;
-		System.out.println("¿Existe algun coche en el contenedor con precio mayor a "+precio1+" miles de euros? "+ec.existeVehiculoMasXEuros(precio1));
-		Double precio2 = 50.0;
-		System.out.println("¿Existe algun coche en el contenedor con precio mayor a "+precio2+" miles de euros? "+ec.existeVehiculoMasXEuros(precio2));
+		Double precio1 = 24.0;
+		System.out.println("\n¿Existe algun coche en el contenedor con precio mayor a "+precio1+" miles de euros? "+ec.existeVehiculoMasXEuros(precio1));
+		Double precio2 = 100.0;
+		System.out.println("\n¿Existe algun coche en el contenedor con precio mayor a "+precio2+" miles de euros? "+ec.existeVehiculoMasXEuros(precio2));
 		
 		///Media dimensiones vehiculos filtrado por comercial/pasajeros (True: pasajeros, False: comercial)
-		System.out.println("");
 		Boolean esPasajero = true;
-		System.out.println("La media de dimensiones en vehiculos de pasajero es: "+ec.mediaProporciones(esPasajero)/10000+" m^2");
+		System.out.println("\nLa media de dimensiones en vehiculos de pasajero es: "+ec.mediaProporciones(esPasajero)/10000+" m^2");
 		
 		//Coches con mas de x caballos
-		System.out.println("");
 		Integer numCaballos = 150;
-		System.out.println("Los coches con mas de "+numCaballos+" caballos son: "+ec.masDeXCaballos(numCaballos));
+		System.out.println("\nLos coches con mas de "+numCaballos+" caballos son: "+ec.masDeXCaballos(numCaballos));
 		
 		//Map de Constructor como clave y lista de modelos como valor
-		System.out.println("");
-		System.out.println("Los modelos que tiene cada constructor es: "+ec.ConstructorModelos());
+		System.out.println("\nLos modelos que tiene cada constructor es: "+ec.constructorModelos());
 		
 		//Numero de ventas en miles por constructor
-		System.out.println("");
-		System.out.println("Los numeros de ventas en miles por constructor son: "+ec.numeroVentasConstructor());
+		System.out.println("\nLos numeros de ventas en miles por constructor son: "+ec.numeroVentasConstructor());
+		
+		
+		//Lectura de Fichero
+		System.out.print("\nLeyendo fichero de coches...");
+		EstudioCoches estudio = new EstudioCoches("Coches");
+		Set<Coche> setcoches =
+				FactoriaCoches.leerCoches("data/Coches.csv");
+		estudio.añadeSetCoches(setcoches);
+		System.out.println(" leídas " + estudio.getNumeroCoches() 
+			+ " peliculas.");
+		
+		
+		//Existe coche de pasajeros de mas de x euros con Stream
+		Double precio3 = 24.0;
+		System.out.println("\n¿Existe algun coche con precio mayor a "+precio3+" miles de euros? "+estudio.existeVehiculoMasXEuros(precio3));
+		Double precio4 = 100.0;
+		System.out.println("\n¿Existe algun coche con precio mayor a "+precio4+" miles de euros? "+estudio.existeVehiculoMasXEuros(precio4));
+		
+		///Media dimensiones vehiculos filtrado por comercial/pasajeros (True: pasajeros, False: comercial) con Streams
+		Boolean esPasajeroS = true;
+		System.out.println("\nLa media de dimensiones en vehiculos de pasajero es: "+estudio.mediaProporciones(esPasajeroS)/10000+" m^2");
+	
+		//Coches con mas de x caballos con Streams
+		Integer numCaballosS = 200;
+		System.out.println("\nLos coches con mas de "+numCaballosS+" caballos son: "+estudio.masDeXCaballos(numCaballosS));
+		
+		//Map de Constructor como clave y lista de modelos como valor con Streams
+		System.out.println("\nLos modelos que tiene cada constructor es: "+estudio.constructorModelos());
+
+		//Numero de ventas en miles por constructor
+		System.out.println("\nLos numeros de ventas en miles por constructor son: "+estudio.numeroVentasConstructorS());
+		
+		
+		
 	}
 
 }

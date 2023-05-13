@@ -124,7 +124,6 @@ public class Coche {
 		Checkers.check("Una reventa no puede ser mayor a su precio origen", reventaValor<100);
 		Checkers.check("Un vehiculo no puede tener coste menor a 0", precioMiles>=0);
 		Checkers.check("No puede haber ventas negativas", ventasMiles>0);
-		Checkers.check("Las dimensiones del motor no cumplen las normativas", tamanoMotor>=1 && tamanoMotor<6);
 		Checkers.check("La fecha de lanzamiento tiene que ser anterior a la fecha de hoy", ultimoLanzamiento.isBefore(LocalDate.now()));
 		this.constructor = constructor;
 		this.modelo = modelo;
@@ -214,7 +213,7 @@ public class Coche {
 	@Override
 	public String toString() {
 		return "Coche [constructor=" + constructor + ", modelo=" + modelo + ", ventasMiles=" + ventasMiles
-				+ ", reventaValor=" + reventaValor + ", esCoche=" + esPasajeros + ", precioMiles=" + precioMiles
+				+ ", reventaValor=" + reventaValor + ", esPasajeros=" + esPasajeros + ", precioMiles=" + precioMiles
 				+ ", tamanoMotor=" + tamanoMotor + ", caballos=" + caballos + ", distanciaEjes=" + distanciaEjes
 				+ ", ancho=" + ancho + ", largo=" + largo + ", peso=" + peso + ", capacidadGasolina="
 				+ capacidadGasolina + ", eficienciaGasloina=" + eficienciaGasolina + ", ultimoLanzamiento="
